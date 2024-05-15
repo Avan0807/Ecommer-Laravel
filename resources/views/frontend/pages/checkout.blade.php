@@ -20,13 +20,13 @@
         </div>
     </div>
     <!-- End Breadcrumbs -->
-            
+
     <!-- Start Checkout -->
     <section class="shop checkout section">
         <div class="container">
                 <form class="form" method="POST" action="{{route('cart.order')}}">
                     @csrf
-                    <div class="row"> 
+                    <div class="row">
 
                         <div class="col-lg-8 col-12">
                             <div class="checkout-form">
@@ -306,7 +306,7 @@
                                                 <option value="UA">Ukraine</option>
                                                 <option value="AE">United Arab Emirates</option>
                                                 <option value="Uk">United Kingdom</option>
-                                                <option value="US" selected>United States</option>
+                                                <option value="US">United States</option>
                                                 <option value="UY">Uruguay</option>
                                                 <option value="UM">U.S. Minor Outlying Islands</option>
                                                 <option value="VI">U.S. Virgin Islands</option>
@@ -314,7 +314,7 @@
                                                 <option value="VU">Vanuatu</option>
                                                 <option value="VA">Vatican City</option>
                                                 <option value="VE">Venezuela</option>
-                                                <option value="VN">Vietnam</option>
+                                                <option value="VN" selected>Vietnam</option>
                                                 <option value="WF">Wallis and Futuna</option>
                                                 <option value="EH">Western Sahara</option>
                                                 <option value="YE">Yemen</option>
@@ -350,7 +350,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <!--/ End Form -->
                             </div>
@@ -362,7 +362,12 @@
                                     <h2>CART TOTAL</h2>
                                     <div class="content">
                                         <ul>
-										    <li class="order_subtotal" data-price="{{Helper::totalCartPrice()}}">Cart Subtotal<span>${{number_format(Helper::totalCartPrice(),2)}}</span></li>
+										    <li class="order_subtotal" data-price="{{Helper::totalCartPrice()}}">Cart Subtotal
+                                                <span>
+                                                    ${{number_format(Helper::totalCartPrice(),2)}}
+                                                </span>
+
+                                            </li>
                                             <li class="shipping">
                                                 Shipping Cost
                                                 @if(count(Helper::shipping())>0 && Helper::cartCount()>0)
@@ -372,11 +377,11 @@
                                                         <option value="{{$shipping->id}}" class="shippingOption" data-price="{{$shipping->price}}">{{$shipping->type}}: ${{$shipping->price}}</option>
                                                         @endforeach
                                                     </select>
-                                                @else 
+                                                @else
                                                     <span>Free</span>
                                                 @endif
                                             </li>
-                                            
+
                                             @if(session('coupon'))
                                             <li class="coupon_price" data-price="{{session('coupon')['value']}}">You Save<span>${{number_format(session('coupon')['value'],2)}}</span></li>
                                             @endif
@@ -405,7 +410,7 @@
             <input name="payment_method"  type="radio" value="cod" required> <label> Cash On Delivery</label><br>
             <!-- <input name="payment_method"  type="radio" value="paypal"> <label> PayPal</label><br> -->
             <input name="payment_method"  type="radio" value="cardpay" required> <label> Card Payment</label><br>
-            
+
             <!-- Credit Card Details -->
             <div id="creditCardDetails" style="display: none;">
                 <label for="cardNumber">Card Number:</label>
@@ -413,10 +418,10 @@
 
                 <label for="cardName">Name on Card:</label>
                 <input type="text" id="cardName" name="card_name"><br>
-                
+
                 <label for="expirationDate">Expiration Date:</label>
                 <input type="text" id="expirationDate" name="expiration_date" maxlength="5"><br>
-                
+
                 <label for="cvv">CVV:</label>
                 <input type="text" id="cvv" name="cvv" maxlength="3"><br>
             </div>
@@ -449,7 +454,7 @@
         </div>
     </section>
     <!--/ End Checkout -->
-    
+
     <!-- Start Shop Services Area  -->
     <section class="shop-services section home">
         <div class="container">
@@ -494,7 +499,7 @@
         </div>
     </section>
     <!-- End Shop Services -->
-    
+
     <!-- Start Shop Newsletter  -->
     <section class="shop-newsletter section">
         <div class="container">
@@ -586,8 +591,8 @@
 		$(document).ready(function(){
 			$('.shipping select[name=shipping]').change(function(){
 				let cost = parseFloat( $(this).find('option:selected').data('price') ) || 0;
-				let subtotal = parseFloat( $('.order_subtotal').data('price') ); 
-				let coupon = parseFloat( $('.coupon_price').data('price') ) || 0; 
+				let subtotal = parseFloat( $('.order_subtotal').data('price') );
+				let coupon = parseFloat( $('.coupon_price').data('price') ) || 0;
 				// alert(coupon);
 				$('#order_total_price span').text('$'+(subtotal + cost-coupon).toFixed(2));
 			});
@@ -596,16 +601,16 @@
 
 	</script>
 
-<script>
-    $(document).ready(function() {
-        $('input[name="payment_method"]').change(function() {
-            if ($(this).val() === 'cardpay') {
-                $('#creditCardDetails').show();
-            } else {
-                $('#creditCardDetails').hide();
-            }
+    <script>
+        $(document).ready(function() {
+            $('input[name="payment_method"]').change(function() {
+                if ($(this).val() === 'cardpay') {
+                    $('#creditCardDetails').show();
+                } else {
+                    $('#creditCardDetails').hide();
+                }
+            });
         });
-    });
-</script>
+    </script>
 
 @endpush

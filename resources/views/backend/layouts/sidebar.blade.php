@@ -21,10 +21,24 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
+    <div class="sidebar-heading">
+        Order
+    </div>
+    <!--Orders -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{route('order.index')}}">
+            <i class="fas fa-cart-plus"></i>
+            <span>Orders</span>
+        </a>
+    </li>
+
+    <!-- Heading -->
+    <hr class="sidebar-divider">
     <!-- Heading -->
     <div class="sidebar-heading">
         Banner
     </div>
+
 
     <!-- Nav Item - Pages Collapse Menu -->
     <!-- Visit 'codeastro' for more projects -->
@@ -116,14 +130,6 @@
         </div>
     </li>
 
-    <!--Orders -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{route('order.index')}}">
-            <i class="fas fa-cart-plus"></i>
-            <span>Orders</span>
-        </a>
-    </li>
-
     <!-- Reviews -->
     <li class="nav-item">
         <a class="nav-link" href="{{route('review.index')}}">
@@ -171,7 +177,7 @@
         </div>
       </li>
 
-      <!-- Tags -->
+    <!-- Tags
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#tagCollapse" aria-expanded="true" aria-controls="tagCollapse">
             <i class="fas fa-tags fa-folder"></i>
@@ -184,7 +190,7 @@
             <a class="collapse-item" href="{{route('post-tag.create')}}">Add Tag</a>
             </div>
         </div>
-    </li>
+    </li>  -->
 
       <!-- Comments -->
       <li class="nav-item">

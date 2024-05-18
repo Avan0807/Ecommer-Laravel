@@ -15,7 +15,7 @@
 								$settings=DB::table('settings')->get();
 							@endphp
 							<p class="text">@foreach($settings as $data) {{$data->short_des}} @endforeach</p>
-							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">@foreach($settings as $data) {{$data->phone}} @endforeach</a></span></p>
+							<p class="call">Got Question? Call us 24/7<span><a href="https://zalo.me/0967078760" target="_blank">@foreach($settings as $data) {{$data->phone}} @endforeach</a></span></p>
 						</div>
 						<!-- End Single Widget -->
 					</div>

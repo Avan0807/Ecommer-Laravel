@@ -27,8 +27,8 @@
 					<table class="table shopping-summery">
 						<thead>
 							<tr class="main-hading">
-								<th>PRODUCT</th>
-								<th>NAME</th>
+								<th class="text-center">PRODUCT</th>
+								<th class="text-center">NAME</th>
 								<th class="text-center">UNIT PRICE</th>
 								<th class="text-center">QUANTITY</th>
 								<th class="text-center">TOTAL</th>
@@ -49,7 +49,8 @@
 												<p class="product-name"><a href="{{route('product-detail',$cart->product['slug'])}}" target="_blank">{{$cart->product['title']}}</a></p>
 												<p class="product-des">{!!($cart['summary']) !!}</p>
 											</td>
-											<td class="price" data-title="Price"><span>${{$cart['price']}}</span></td>
+                                            <td class="total-amount cart_single_price" data-title="Total"><span class="money">${{$cart['price']}}</span></td>
+
 											<td class="qty" data-title="Qty"><!-- Input Order -->
 												<div class="input-group">
 													<div class="button minus">
@@ -67,7 +68,7 @@
 												</div>
 												<!--/ End Input Order -->
 											</td>
-											<td class="total-amount cart_single_price" data-title="Total"><span class="money">${{number_format($cart['amount'],2)}}</span></td>
+											<td class="price" data-title="Price"><span>${{number_format($cart['amount'],2)}}</span></td>
 
 											<td class="action" data-title="Remove"><a href="{{route('cart-delete',$cart->id)}}"><i class="ti-trash remove-icon"></i></a></td>
 										</tr>
@@ -122,17 +123,17 @@
 							<div class="col-lg-4 col-md-7 col-12">
 								<div class="right">
 									<ul>
-										<li class="order_subtotal" data-price="{{Helper::totalCartPrice()}}">Cart Subtotal<span>${{number_format(Helper::totalCartPrice(),2)}}</span></li>
+                                        @php
+                                            $total_amount=Helper::totalCartPrice();
+                                            if(session()->has('coupon')){
+                                                $total_amount=$total_amount-Session::get('coupon')['value'];
+                                            }
+                                        @endphp
+										<li class="order_subtotal" data-price="">Cart Subtotal<span>${{number_format(Helper::totalCartPrice(),2)}}</span></li>
 
 										@if(session()->has('coupon'))
 										<li class="coupon_price" data-price="{{Session::get('coupon')['value']}}">You Save<span>${{number_format(Session::get('coupon')['value'],2)}}</span></li>
 										@endif
-										@php
-											$total_amount=Helper::totalCartPrice();
-											if(session()->has('coupon')){
-												$total_amount=$total_amount-Session::get('coupon')['value'];
-											}
-										@endphp
 										@if(session()->has('coupon'))
 											<li class="last" id="order_total_price">You Pay<span>${{number_format($total_amount,2)}}</span></li>
 										@else
@@ -255,16 +256,29 @@
   		$('select.nice-select').niceSelect();
 	</script>
 	<script>
-		$(document).ready(function(){
-			$('.shipping select[name=shipping]').change(function(){
-				let cost = parseFloat( $(this).find('option:selected').data('price') ) || 0;
-				let subtotal = parseFloat( $('.order_subtotal').data('price') );
-				let coupon = parseFloat( $('.coupon_price').data('price') ) || 0;
-				// alert(coupon);
-				$('#order_total_price span').text('$'+(subtotal + cost-coupon).toFixed(2));
-			});
+        $(document).ready(function(){
+            // Tính toán giá trị tổng của sản phẩm từ data-title="Price"
+            let subtotal = 0;
+            $('.price span').each(function() {
+                subtotal += parseFloat($(this).text().replace('$', '').replace(',', ''));
+            });
+            $('.order_subtotal').attr('data-price', subtotal.toFixed(2));
+            $('.order_subtotal span').text('$' + subtotal.toFixed(2));
 
-		});
+            // Tính toán lại giá trị tổng khi có sự thay đổi trong shipping
+            $('.shipping select[name=shipping]').change(function(){
+                let cost = parseFloat($(this).find('option:selected').data('price')) || 0;
+                let coupon = parseFloat($('.coupon_price').data('price')) || 0;
+                let newTotal = subtotal + cost - coupon;
+                $('#order_total_price span').text('$' + newTotal.toFixed(2));
+            });
+
+            // Tính lại tổng khi trang web được tải
+            let cost = parseFloat($('.shipping select[name=shipping]').find('option:selected').data('price')) || 0;
+            let coupon = parseFloat($('.coupon_price').data('price')) || 0;
+            let newTotal = subtotal + cost - coupon;
+            $('#order_total_price span').text('$' + newTotal.toFixed(2));
+        });
 
 	</script>
 

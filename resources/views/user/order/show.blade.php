@@ -82,7 +82,7 @@
                           $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
                       @endphp
                         <td>Shipping Charge</td>
-                        <td> :${{$order->shipping->price}}</td>
+                        <td> : ${{$order->shipping->price}}</td>
                     </tr>
                     <tr>
                         <td>Total Amount</td>
@@ -90,7 +90,7 @@
                     </tr>
                     <tr>
                       <td>Payment Method</td>
-                      <td> : 
+                      <td> :
                             @if($order->payment_method == 'cod')
                                 Cash on Delivery
                             @elseif($order->payment_method == 'paypal')
@@ -102,7 +102,7 @@
                     </tr>
                     <tr>
                         <td>Payment Status</td>
-                        <td> : 
+                        <td> :
                           @if($order->payment_status == 'paid')
                               <span class="badge badge-success">Paid</span>
                           @elseif($order->payment_status == 'unpaid')

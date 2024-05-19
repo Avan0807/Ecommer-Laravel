@@ -15,7 +15,6 @@ class CaptchaController extends Controller
     {
         $request->validate([
             'captcha' => 'required|captcha',
-            // Add other form validation rules here if needed
         ]);
 
         // Handle login logic here. For demonstration, we'll just return a success message.

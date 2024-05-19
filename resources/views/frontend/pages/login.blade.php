@@ -19,11 +19,11 @@
         </div>
     </div>
     <!-- End Breadcrumbs -->
-            
+
     <!-- Shop Login -->
     <section class="shop login section">
         <div class="container">
-            <div class="row"> 
+            <div class="row">
                 <div class="col-lg-6 offset-lg-3 col-12">
                     <div class="login-form">
                         <h2>Login</h2>
@@ -49,14 +49,14 @@
                                         @enderror
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-12">
                                     <div class="captcha">
                                         <span>{!! captcha_img('math') !!}</span>
                                         <button type="button" class="btn btn-danger reload" id="reload">&#x21bb;</button>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Captcha<span>*</span></label>
@@ -64,7 +64,7 @@
                                         @error('captcha')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
-                                    </div>
+                                </div>
 
                                 <div class="col-12">
                                     <div class="form-group login-btn">
@@ -137,7 +137,6 @@
         }
     });
 });
-
 </script>
 
 @endpush

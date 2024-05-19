@@ -10,6 +10,7 @@ class NewsletterList
     /** @var array */
     public $properties = [];
 
+
     public function __construct(string $name, array $properties)
     {
         $this->name = $name;
@@ -18,8 +19,13 @@ class NewsletterList
 
     public function getId(): string
     {
-        return $this->properties['id'];
+        if (isset($this->properties['id'])) {
+            return (string) $this->properties['id'];
+        } else {
+            throw new \RuntimeException("ID not found for newsletter list '{$this->name}'");
+        }
     }
+
 
     public function getName(): string
     {

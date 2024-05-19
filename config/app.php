@@ -1,5 +1,8 @@
 <?php
 
+
+
+
 return [
 
     /*
@@ -123,6 +126,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -182,6 +187,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class,
 
+
+        Spatie\Newsletter\NewsletterServiceProvider::class,
+
     ],
 
     /*
@@ -239,7 +247,7 @@ return [
         'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
-        
+
     ],
 
 ];

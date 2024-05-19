@@ -42,7 +42,7 @@ class MailChimp
             throw new \Exception("cURL support is required, but can't be found.");
         }
 
-        $this->api_key = $api_key;
+        $this->api_key = '35a1f5fc8a6123bd51ef0613b0d256df-us17';
 
         if ($api_endpoint === null) {
             if (strpos($this->api_key, '-') === false) {

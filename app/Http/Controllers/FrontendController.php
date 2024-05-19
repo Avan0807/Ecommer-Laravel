@@ -17,9 +17,10 @@ use DB;
 use Hash;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+
 class FrontendController extends Controller
 {
-   
+
     public function index(Request $request){
         return redirect()->route($request->user()->role);
     }
@@ -38,7 +39,7 @@ class FrontendController extends Controller
                 ->with('banners',$banners)
                 ->with('product_lists',$products)
                 ->with('category_lists',$category);
-    }   
+    }
 
     public function aboutUs(){
         return view('frontend.pages.about-us');
@@ -56,7 +57,7 @@ class FrontendController extends Controller
 
     public function productGrids(){
         $products=Product::query();
-        
+
         if(!empty($_GET['category'])){
             $slug=explode(',',$_GET['category']);
             // dd($slug);
@@ -85,7 +86,7 @@ class FrontendController extends Controller
             // return $price;
             // if(isset($price[0]) && is_numeric($price[0])) $price[0]=floor(Helper::base_amount($price[0]));
             // if(isset($price[1]) && is_numeric($price[1])) $price[1]=ceil(Helper::base_amount($price[1]));
-            
+
             $products->whereBetween('price',$price);
         }
 
@@ -99,12 +100,12 @@ class FrontendController extends Controller
         }
         // Sort by name , price, category
 
-      
+
         return view('frontend.pages.product-grids')->with('products',$products)->with('recent_products',$recent_products);
     }
     public function productLists(){
         $products=Product::query();
-        
+
         if(!empty($_GET['category'])){
             $slug=explode(',',$_GET['category']);
             // dd($slug);
@@ -133,7 +134,7 @@ class FrontendController extends Controller
             // return $price;
             // if(isset($price[0]) && is_numeric($price[0])) $price[0]=floor(Helper::base_amount($price[0]));
             // if(isset($price[1]) && is_numeric($price[1])) $price[1]=ceil(Helper::base_amount($price[1]));
-            
+
             $products->whereBetween('price',$price);
         }
 
@@ -147,7 +148,7 @@ class FrontendController extends Controller
         }
         // Sort by name , price, category
 
-      
+
         return view('frontend.pages.product-lists')->with('products',$products)->with('recent_products',$recent_products);
     }
     public function productFilter(Request $request){
@@ -251,7 +252,7 @@ class FrontendController extends Controller
 
     public function blog(){
         $post=Post::query();
-        
+
         if(!empty($_GET['category'])){
             $slug=explode(',',$_GET['category']);
             // dd($slug);
@@ -349,18 +350,36 @@ class FrontendController extends Controller
     public function login(){
         return view('frontend.pages.login');
     }
-    public function loginSubmit(Request $request){
-        $data= $request->all();
-        if(Auth::attempt(['email' => $data['email'], 'password' => $data['password'],'status'=>'active'])){
-            Session::put('user',$data['email']);
-            request()->session()->flash('success','Logged in successfully!');
+    public function loginSubmit(Request $request)
+    {
+        // Xác thực dữ liệu yêu cầu đầu vào
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+
+        $credentials = $request->only('email', 'password');
+
+        // Cố gắng đăng nhập người dùng với điều kiện bổ sung
+        if (Auth::attempt(array_merge($credentials, ['status' => 'active']))) {
+            // Xác thực thành công
+            Session::put('user', Auth::user()->email);
+
+            // Kiểm tra vai trò của người dùng
+            if (Auth::user()->role == 'admin') {
+                $request->session()->flash('success', 'Đăng nhập thành công với tư cách quản trị viên!');
+                return redirect()->route('admin');
+            }
+
+            $request->session()->flash('success', 'Đăng nhập thành công!');
             return redirect()->route('home');
         }
-        else{
-            request()->session()->flash('error','Invalid email and password pleas try again!');
-            return redirect()->back();
-        }
+
+        // Xác thực thất bại
+        $request->session()->flash('error', 'Email hoặc mật khẩu không đúng. Vui lòng thử lại!');
+        return redirect()->back();
     }
+
 
     public function logout(){
         Session::forget('user');
@@ -406,6 +425,8 @@ class FrontendController extends Controller
     }
 
     public function subscribe(Request $request){
+        $mailchimpApiKey = env('MAILCHIMP_API_KEY');
+
         if(! Newsletter::isSubscribed($request->email)){
                 Newsletter::subscribePending($request->email);
                 if(Newsletter::lastActionSucceeded()){
@@ -422,5 +443,5 @@ class FrontendController extends Controller
                 return back();
             }
     }
-    
+
 }

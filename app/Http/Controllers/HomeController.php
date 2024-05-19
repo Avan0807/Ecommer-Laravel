@@ -9,6 +9,7 @@ use App\Models\ProductReview;
 use App\Models\PostComment;
 use App\Rules\MatchOldPassword;
 use Hash;
+use Mail;
 
 class HomeController extends Controller
 {
@@ -220,11 +221,13 @@ class HomeController extends Controller
             'new_password' => ['required'],
             'new_confirm_password' => ['same:new_password'],
         ]);
-   
+
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
-   
+
         return redirect()->route('user')->with('success','Password changed successfully');
     }
 
-    
+
+
+
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CaptchaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -141,13 +142,14 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
     // Password Change
     Route::get('change-password', 'AdminController@changePassword')->name('change.password.form');
     Route::post('change-password', 'AdminController@changPasswordStore')->name('change.password');
+    // Captcha 
+    Route::get('/refresh_captcha', 'CaptchaController@refresh')->name('refresh.captcha');
+
+    //Ajax
+    Route::post('ajax/route', 'AjaxController@method')->middleware('verify.csrf.ajax');
+
+
 });
-
-
-
-
-
-
 
 
 

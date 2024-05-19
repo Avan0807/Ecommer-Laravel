@@ -65,5 +65,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin'=> \App\Http\Middleware\Admin::class,
         'user'=> \App\Http\Middleware\User::class,
+        'verify.csrf.ajax' => \App\Http\Middleware\VerifyCsrfTokenForAjax::class,
+
     ];
 }

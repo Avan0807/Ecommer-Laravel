@@ -86,7 +86,7 @@
       </form>
     </div>
 </div>
-<!-- Visit 'codeastro' for more projects -->
+
 @endsection
 
 @push('styles')

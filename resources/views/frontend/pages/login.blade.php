@@ -49,14 +49,31 @@
                                         @enderror
                                     </div>
                                 </div>
+                                
+                                <div class="col-12">
+                                    <div class="captcha">
+                                        <span>{!! captcha_img('math') !!}</span>
+                                        <button type="button" class="btn btn-danger reload" id="reload">&#x21bb;</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Captcha<span>*</span></label>
+                                        <input type="text" name="captcha" placeholder="" required="required">
+                                        @error('captcha')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
                                 <div class="col-12">
                                     <div class="form-group login-btn">
                                         <button class="btn btn-facebook" type="submit">Login</button>
                                         <a href="{{route('register.form')}}" class="btn">Register</a>
-                                        <!-- OR
+                                        OR
                                         <a href="{{route('login.redirect','facebook')}}" class="btn btn-facebook"><i class="ti-facebook"></i></a>
                                         <a href="{{route('login.redirect','github')}}" class="btn btn-github"><i class="ti-github"></i></a>
-                                        <a href="{{route('login.redirect','google')}}" class="btn btn-google"><i class="ti-google"></i></a> -->
+                                        <a href="{{route('login.redirect','google')}}" class="btn btn-google"><i class="ti-google"></i></a>
 
                                     </div>
                                     <div class="checkbox">
@@ -68,6 +85,8 @@
                                         </a>
                                     @endif
                                 </div>
+
+                                <input type="hidden" name="captcha_code" id="captcha_code" value="">
                             </div>
                         </form>
                         <!--/ End Form -->
@@ -104,4 +123,21 @@
         background:rgb(243, 26, 26) !important;
     }
 </style>
+@endpush
+
+@push('scripts')
+<script>
+    $('#reload').click(function(){
+    $.ajax({
+        type:'GET',
+        url:'{{ route('refresh.captcha') }}',
+        success:function(data){
+            $(".captcha span").html(data.captcha);
+            $("#captcha_code").val(data.captcha_code);
+        }
+    });
+});
+
+</script>
+
 @endpush

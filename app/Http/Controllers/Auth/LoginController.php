@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Socialite;
 use App\User;
 use Auth;
+use Illuminate\Support\Str;
+use Session;
+
 class LoginController extends Controller
 {
     /*
@@ -37,9 +40,7 @@ class LoginController extends Controller
      * @return void
      */
 
-    public function credentials(Request $request){
-        return ['email'=>$request->email,'password'=>$request->password,'status'=>'active','role'=>'admin'];
-    }
+
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
@@ -70,4 +71,32 @@ class LoginController extends Controller
          return redirect()->route('home');
         }
     }
+
+    //Captcha
+
+    public function refreshCaptcha()
+    {
+        return response()->json(['captcha'=> captcha_img('math'), 'captcha_code' => Str::random(6)]);
+    }
+
+    protected function attemptLogin(Request $request)
+    {
+        return $this->guard()->attempt(
+            $this->credentials($request),
+            $request->filled('remember')
+        );
+    }
+
+    public function credentials(Request $request)
+    {
+        return [
+            'email' => $request->email,
+            'password' => $request->password,
+            'status' => 'active',
+            'role' => 'admin',
+            'captcha' => $request->captcha_code,
+        ];
+    }
+
+
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th5 15, 2024 lúc 07:53 PM
+-- Thời gian đã tạo: Th5 19, 2024 lúc 08:25 PM
 -- Phiên bản máy phục vụ: 8.0.30
 -- Phiên bản PHP: 7.2.34
 
@@ -29,11 +29,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `banners` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `photo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  `status` enum('active','inactive') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'inactive',
+  `title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `photo` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `status` enum('active','inactive') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'inactive',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -54,9 +54,9 @@ INSERT INTO `banners` (`id`, `title`, `slug`, `photo`, `description`, `status`, 
 
 CREATE TABLE `brands` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` enum('active','inactive') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
+  `title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('active','inactive') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -80,7 +80,7 @@ CREATE TABLE `carts` (
   `order_id` bigint UNSIGNED DEFAULT NULL,
   `user_id` bigint UNSIGNED DEFAULT NULL,
   `price` double(8,2) NOT NULL,
-  `status` enum('new','progress','delivered','cancel') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new',
+  `status` enum('new','progress','delivered','cancel') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new',
   `quantity` int NOT NULL,
   `amount` double(8,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -92,9 +92,11 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`id`, `product_id`, `order_id`, `user_id`, `price`, `status`, `quantity`, `amount`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 769.23, 'new', 6, 4615.38, '2024-05-15 00:01:08', '2024-05-15 00:02:50'),
-(2, 1, NULL, 2, 769.23, 'new', 1, 769.23, '2024-05-15 11:54:26', '2024-05-15 11:54:26'),
-(4, 8, NULL, 1, 799.20, 'new', 6, 4795.20, '2024-05-15 13:13:47', '2024-05-15 13:45:42');
+(2, 1, 5, 2, 769.23, 'new', 1, 769.23, '2024-05-15 11:54:26', '2024-05-19 02:02:18'),
+(4, 8, 2, 1, 799.20, 'new', 6, 4795.20, '2024-05-15 13:13:47', '2024-05-19 01:56:41'),
+(5, 9, 3, 1, 799.20, 'new', 2, 1798.20, '2024-05-19 01:59:32', '2024-05-19 02:00:39'),
+(6, 8, 3, 1, 799.20, 'new', 1, 799.20, '2024-05-19 01:59:50', '2024-05-19 02:00:39'),
+(7, 5, 4, 1, 1172.30, 'new', 1, 1172.30, '2024-05-19 02:01:10', '2024-05-19 02:01:30');
 
 -- --------------------------------------------------------
 
@@ -104,14 +106,14 @@ INSERT INTO `carts` (`id`, `product_id`, `order_id`, `user_id`, `price`, `status
 
 CREATE TABLE `categories` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `summary` text COLLATE utf8mb4_unicode_ci,
-  `photo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `summary` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `photo` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_parent` tinyint(1) NOT NULL DEFAULT '1',
   `parent_id` bigint UNSIGNED DEFAULT NULL,
   `added_by` bigint UNSIGNED DEFAULT NULL,
-  `status` enum('active','inactive') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'inactive',
+  `status` enum('active','inactive') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'inactive',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -122,9 +124,9 @@ CREATE TABLE `categories` (
 
 INSERT INTO `categories` (`id`, `title`, `slug`, `summary`, `photo`, `is_parent`, `parent_id`, `added_by`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'onepiece', 'test', 'zoro', 'https://i.pinimg.com/564x/56/be/bd/56bebd8e5b9db6044ec974e862df487a.jpg', 1, NULL, NULL, 'active', '2024-05-14 23:55:40', '2024-05-15 12:59:04'),
-(2, 'Genshin Impact', 'genshin-impact', 'genshin', 'https://i.pinimg.com/564x/e5/4c/e0/e54ce02b8b29277d9e7275c5b5af5b0e.jpg', 1, NULL, NULL, 'inactive', '2024-05-15 12:48:48', '2024-05-15 12:59:52'),
 (3, 'Naruto', 'naruto', 'naruto', 'https://i.pinimg.com/564x/c6/89/d4/c689d4801269482644302b75dee37c5b.jpg', 1, NULL, NULL, 'active', '2024-05-15 12:57:51', '2024-05-15 12:57:51'),
-(4, 'Kimetsu no Yaiba', 'kimetsu-no-yaiba', 'kimetsu', 'https://i.pinimg.com/564x/fd/1a/48/fd1a48a4abeba49879d3c6126bb10f67.jpg', 1, NULL, NULL, 'active', '2024-05-15 12:58:43', '2024-05-15 13:01:41');
+(4, 'Kimetsu no Yaiba', 'kimetsu-no-yaiba', 'kimetsu', 'https://i.pinimg.com/564x/fd/1a/48/fd1a48a4abeba49879d3c6126bb10f67.jpg', 1, NULL, NULL, 'active', '2024-05-15 12:58:43', '2024-05-15 13:01:41'),
+(5, 'Genshin Impact', 'genshin-impact-2405195626-277', 'genshin impact', 'https://i.pinimg.com/564x/e5/4c/e0/e54ce02b8b29277d9e7275c5b5af5b0e.jpg', 1, NULL, NULL, 'active', '2024-05-19 09:56:26', '2024-05-19 09:56:26');
 
 -- --------------------------------------------------------
 
@@ -134,10 +136,10 @@ INSERT INTO `categories` (`id`, `title`, `slug`, `summary`, `photo`, `is_parent`
 
 CREATE TABLE `coupons` (
   `id` bigint UNSIGNED NOT NULL,
-  `code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` enum('fixed','percent') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'fixed',
+  `code` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` enum('fixed','percent') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'fixed',
   `value` decimal(20,2) NOT NULL,
-  `status` enum('active','inactive') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'inactive',
+  `status` enum('active','inactive') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'inactive',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -158,10 +160,10 @@ INSERT INTO `coupons` (`id`, `code`, `type`, `value`, `status`, `created_at`, `u
 
 CREATE TABLE `failed_jobs` (
   `id` bigint UNSIGNED NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -173,12 +175,12 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `messages` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `subject` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `photo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `message` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `subject` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `photo` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `message` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `read_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -189,7 +191,7 @@ CREATE TABLE `messages` (
 --
 
 INSERT INTO `messages` (`id`, `name`, `subject`, `email`, `photo`, `phone`, `message`, `read_at`, `created_at`, `updated_at`) VALUES
-(1, 'Nguyễn Văn', 'avan', 'Van080703@gmail.com', NULL, '0967078760', '123asdasdadasvavsavavasvasvasvasv', NULL, '2024-05-15 13:20:01', '2024-05-15 13:20:01');
+(1, 'Nguyễn Văn', 'avan', 'Van080703@gmail.com', NULL, '0967078760', '123asdasdadasvavsavavasvasvasvasv', '2024-05-19 01:57:24', '2024-05-15 13:20:01', '2024-05-19 01:57:24');
 
 -- --------------------------------------------------------
 
@@ -199,7 +201,7 @@ INSERT INTO `messages` (`id`, `name`, `subject`, `email`, `photo`, `phone`, `mes
 
 CREATE TABLE `migrations` (
   `id` int UNSIGNED NOT NULL,
-  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -236,11 +238,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `notifications` (
-  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `notifiable_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notifiable_type` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `notifiable_id` bigint UNSIGNED NOT NULL,
-  `data` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `read_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -251,8 +253,12 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`) VALUES
-('1be981ef-2b56-46cb-bb5f-665a00369284', 'App\\Notifications\\StatusNotification', 'App\\User', 1, '{\"title\":\"New Product Rating!\",\"actionURL\":\"http:\\/\\/ecommercelaravel\\/public\\/product-detail\\/venti\",\"fas\":\"fa-star\"}', NULL, '2024-05-15 12:55:00', '2024-05-15 12:55:00'),
-('1ecab4dd-17db-4e4d-8e4a-952689e57e21', 'App\\Notifications\\StatusNotification', 'App\\User', 1, '{\"title\":\"New Order Received\",\"actionURL\":\"http:\\/\\/ecommercelaravel\\/public\\/admin\\/order\\/1\",\"fas\":\"fa-file-alt\"}', '2024-05-15 00:05:59', '2024-05-15 00:02:50', '2024-05-15 00:05:59');
+('1be981ef-2b56-46cb-bb5f-665a00369284', 'App\\Notifications\\StatusNotification', 'App\\User', 1, '{\"title\":\"New Product Rating!\",\"actionURL\":\"http:\\/\\/ecommercelaravel\\/public\\/product-detail\\/venti\",\"fas\":\"fa-star\"}', '2024-05-19 01:57:05', '2024-05-15 12:55:00', '2024-05-19 01:57:05'),
+('1ecab4dd-17db-4e4d-8e4a-952689e57e21', 'App\\Notifications\\StatusNotification', 'App\\User', 1, '{\"title\":\"New Order Received\",\"actionURL\":\"http:\\/\\/ecommercelaravel\\/public\\/admin\\/order\\/1\",\"fas\":\"fa-file-alt\"}', '2024-05-15 00:05:59', '2024-05-15 00:02:50', '2024-05-15 00:05:59'),
+('40c8ecd2-87bb-4494-b232-1b9d4a477f70', 'App\\Notifications\\StatusNotification', 'App\\User', 1, '{\"title\":\"New Order Received\",\"actionURL\":\"http:\\/\\/ecommerlaravel\\/public\\/admin\\/order\\/5\",\"fas\":\"fa-file-alt\"}', '2024-05-19 02:16:28', '2024-05-19 02:02:18', '2024-05-19 02:16:28'),
+('57b6ff0b-fb9a-449f-9cfa-d3852d36b065', 'App\\Notifications\\StatusNotification', 'App\\User', 1, '{\"title\":\"New Order Received\",\"actionURL\":\"http:\\/\\/ecommerlaravel\\/public\\/admin\\/order\\/2\",\"fas\":\"fa-file-alt\"}', '2024-05-19 01:56:55', '2024-05-19 01:56:41', '2024-05-19 01:56:55'),
+('a942d6e0-8c93-410b-a3ed-edc7b7fa2c03', 'App\\Notifications\\StatusNotification', 'App\\User', 1, '{\"title\":\"New Order Received\",\"actionURL\":\"http:\\/\\/ecommerlaravel\\/public\\/admin\\/order\\/4\",\"fas\":\"fa-file-alt\"}', '2024-05-19 09:42:46', '2024-05-19 02:01:30', '2024-05-19 09:42:46'),
+('ad16376f-7e19-4472-88ec-ea641d28dc5b', 'App\\Notifications\\StatusNotification', 'App\\User', 1, '{\"title\":\"New Order Received\",\"actionURL\":\"http:\\/\\/ecommerlaravel\\/public\\/admin\\/order\\/3\",\"fas\":\"fa-file-alt\"}', '2024-05-19 09:42:50', '2024-05-19 02:00:39', '2024-05-19 09:42:50');
 
 -- --------------------------------------------------------
 
@@ -262,24 +268,24 @@ INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `
 
 CREATE TABLE `orders` (
   `id` bigint UNSIGNED NOT NULL,
-  `order_number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `order_number` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint UNSIGNED DEFAULT NULL,
   `sub_total` double(8,2) NOT NULL,
   `shipping_id` bigint UNSIGNED DEFAULT NULL,
   `coupon` double(8,2) DEFAULT NULL,
   `total_amount` double(8,2) NOT NULL,
   `quantity` int NOT NULL,
-  `payment_method` enum('cod','paypal') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'cod',
-  `payment_status` enum('paid','unpaid') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'unpaid',
-  `status` enum('new','process','delivered','cancel') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new',
-  `first_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `country` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `post_code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address1` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address2` text COLLATE utf8mb4_unicode_ci,
+  `payment_method` enum('cod','paypal') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'cod',
+  `payment_status` enum('paid','unpaid') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'unpaid',
+  `status` enum('new','process','delivered','cancel') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new',
+  `first_name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `post_code` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address1` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address2` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -289,7 +295,10 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `order_number`, `user_id`, `sub_total`, `shipping_id`, `coupon`, `total_amount`, `quantity`, `payment_method`, `payment_status`, `status`, `first_name`, `last_name`, `email`, `phone`, `country`, `post_code`, `address1`, `address2`, `created_at`, `updated_at`) VALUES
-(1, 'ORD-TVJKERQYMV', 1, 769.23, NULL, NULL, 769.23, 6, 'cod', 'unpaid', 'new', 'Nguyễn', 'Văn', 'Van080703@gmail.com', '0967078760', 'DZ', '154000', 'Hà Nội', 'Sơn Tây', '2024-05-15 00:02:49', '2024-05-15 00:02:49');
+(2, 'ORD-A2A9FBK8H3', 1, 4795.20, NULL, NULL, 4795.20, 6, 'cod', 'unpaid', 'new', 'Nguyễn', 'Văn', 'Van080703@gmail.com', '0967078760', 'VN', '154000', 'Hà Nội', 'Sơn Tây', '2024-05-19 01:56:41', '2024-05-19 01:56:41'),
+(3, 'ORD-FVVHQOFTCP', 1, 2397.60, NULL, 159.84, 2237.76, 3, 'cod', 'unpaid', 'process', 'Nguyễn', 'Văn', 'Van080703@gmail.com', '0967078760', 'VN', '154000', 'Hà Nội', 'Sơn Tây', '2024-05-19 02:00:39', '2024-05-19 09:53:13'),
+(4, 'ORD-UTRXMOEZVY', 1, 1172.30, NULL, NULL, 1172.30, 1, 'cod', 'unpaid', 'delivered', 'Nguyễn', 'Văn', 'Van080703@gmail.com', '0967078760', 'VN', '154000', 'Hà Nội', 'Sơn Tây', '2024-05-19 02:01:30', '2024-05-19 09:53:19'),
+(5, 'ORD-DNM8TJVEPP', 2, 769.23, NULL, NULL, 769.23, 1, 'cod', 'unpaid', 'cancel', 'Nguyễn', 'Văn', 'Van080703@gmail.com', '0967078760', 'VN', '154000', 'Hà Nội', 'Sơn Tây', '2024-05-19 02:02:18', '2024-05-19 09:53:24');
 
 -- --------------------------------------------------------
 
@@ -298,8 +307,8 @@ INSERT INTO `orders` (`id`, `order_number`, `user_id`, `sub_total`, `shipping_id
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -311,17 +320,17 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `posts` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `summary` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` longtext COLLATE utf8mb4_unicode_ci,
-  `quote` text COLLATE utf8mb4_unicode_ci,
-  `photo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tags` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `summary` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `quote` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `photo` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tags` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `post_cat_id` bigint UNSIGNED DEFAULT NULL,
   `post_tag_id` bigint UNSIGNED DEFAULT NULL,
   `added_by` bigint UNSIGNED DEFAULT NULL,
-  `status` enum('active','inactive') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
+  `status` enum('active','inactive') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -341,9 +350,9 @@ INSERT INTO `posts` (`id`, `title`, `slug`, `summary`, `description`, `quote`, `
 
 CREATE TABLE `post_categories` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` enum('active','inactive') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
+  `title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('active','inactive') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -365,9 +374,9 @@ CREATE TABLE `post_comments` (
   `id` bigint UNSIGNED NOT NULL,
   `user_id` bigint UNSIGNED DEFAULT NULL,
   `post_id` bigint UNSIGNED DEFAULT NULL,
-  `comment` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` enum('active','inactive') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
-  `replied_comment` text COLLATE utf8mb4_unicode_ci,
+  `comment` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('active','inactive') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
+  `replied_comment` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `parent_id` bigint UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -381,9 +390,9 @@ CREATE TABLE `post_comments` (
 
 CREATE TABLE `post_tags` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` enum('active','inactive') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
+  `title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('active','inactive') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -396,15 +405,15 @@ CREATE TABLE `post_tags` (
 
 CREATE TABLE `products` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `summary` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` longtext COLLATE utf8mb4_unicode_ci,
-  `photo` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `summary` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `photo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `stock` int NOT NULL DEFAULT '1',
-  `size` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT 'M',
-  `condition` enum('default','new','hot') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'default',
-  `status` enum('active','inactive') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'inactive',
+  `size` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'M',
+  `condition` enum('default','new','hot') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'default',
+  `status` enum('active','inactive') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'inactive',
   `price` double(8,2) NOT NULL,
   `discount` double(8,2) NOT NULL,
   `is_featured` tinyint(1) NOT NULL,
@@ -420,11 +429,11 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `title`, `slug`, `summary`, `description`, `photo`, `stock`, `size`, `condition`, `status`, `price`, `discount`, `is_featured`, `cat_id`, `child_cat_id`, `brand_id`, `created_at`, `updated_at`) VALUES
-(1, 'Scara', 'rozo', 'Trang phục cosplay này dựa trên nhân vật Scara trong Genshin Impact. Nó có thể được sử dụng trong các hội nghị cosplay và tiệc Halloween.', 'Nguồn: Genshin Impact\r\n\r\nNhân vật: Zoro\r\n\r\nBao gồm: Quần, Áo , Áo Choàng, Thắt Lưng, Bông Tai\r\n\r\nChất liệu: polyester.\r\n\r\nHướng dẫn bảo quản: Giặt tay bằng nước lạnh, phơi khô, không dùng thuốc tẩy\r\n\r\nKích thước: Kích thước châu Á, bảng kích thước có thể có sai số 1-3 cm do phương pháp đo.', 'https://yaemiko.click/wp-content/uploads/2024/04/scara.jpg', 90, 'L,2XL', 'default', 'active', 999.00, 23.00, 1, 2, NULL, 1, '2024-05-15 00:00:00', '2024-05-15 13:09:16'),
+(1, 'Scara', 'rozo', 'Trang phục cosplay này dựa trên nhân vật Scara trong Genshin Impact. Nó có thể được sử dụng trong các hội nghị cosplay và tiệc Halloween.', 'Nguồn: Genshin Impact\r\n\r\nNhân vật: Zoro\r\n\r\nBao gồm: Quần, Áo , Áo Choàng, Thắt Lưng, Bông Tai\r\n\r\nChất liệu: polyester.\r\n\r\nHướng dẫn bảo quản: Giặt tay bằng nước lạnh, phơi khô, không dùng thuốc tẩy\r\n\r\nKích thước: Kích thước châu Á, bảng kích thước có thể có sai số 1-3 cm do phương pháp đo.', 'https://yaemiko.click/wp-content/uploads/2024/04/scara.jpg', 90, 'L,2XL', 'default', 'active', 999.00, 23.00, 1, 5, NULL, 1, '2024-05-15 00:00:00', '2024-05-19 09:57:11'),
 (2, 'Luffy', 'luffy', 'Trang phục cosplay này dựa trên nhân vật Luffy trong One Piece. Nó có thể được sử dụng trong các hội nghị cosplay và tiệc Halloween.', 'Nguồn: One piece\r\n\r\nNhân vật: Zoro\r\n\r\nBao gồm: Quần, Áo , Áo Choàng, Thắt Lưng, Bông Tai\r\n\r\nChất liệu: polyester.\r\n\r\nHướng dẫn bảo quản: Giặt tay bằng nước lạnh, phơi khô, không dùng thuốc tẩy\r\n\r\nKích thước: Kích thước châu Á, bảng kích thước có thể có sai số 1-3 cm do phương pháp đo.', 'https://yaemiko.click/wp-content/uploads/2024/04/luffy.webp', 199, 'S,M,L,XL,2XL', 'default', 'active', 1990.00, 9.00, 1, 1, NULL, 1, '2024-05-15 12:38:02', '2024-05-15 13:09:12'),
 (3, 'Law', 'law', 'Trang phục cosplay này dựa trên nhân vật Law trong One Piece. Nó có thể được sử dụng trong các hội nghị cosplay và tiệc Halloween.', 'Nguồn: One piece\r\n\r\nNhân vật: Zoro\r\n\r\nBao gồm: Quần, Áo , Áo Choàng, Thắt Lưng, Bông Tai\r\n\r\nChất liệu: polyester.\r\n\r\nHướng dẫn bảo quản: Giặt tay bằng nước lạnh, phơi khô, không dùng thuốc tẩy\r\n\r\nKích thước: Kích thước châu Á, bảng kích thước có thể có sai số 1-3 cm do phương pháp đo.', 'https://yaemiko.click/wp-content/uploads/2024/04/law.webp', 199, 'S,M,L,XL,2XL', 'default', 'active', 1990.00, 9.00, 1, 1, NULL, 1, '2024-05-15 12:39:32', '2024-05-15 13:08:57'),
 (4, 'Rozo', 'rozo-2405155211-139', 'Trang phục cosplay này dựa trên nhân vật Rozo trong One Piece. Nó có thể được sử dụng trong các hội nghị cosplay và tiệc Halloween.', 'Nguồn: One piece\r\n\r\nNhân vật: Zoro\r\n\r\nBao gồm: Quần, Áo , Áo Choàng, Thắt Lưng, Bông Tai\r\n\r\nChất liệu: polyester.\r\n\r\nHướng dẫn bảo quản: Giặt tay bằng nước lạnh, phơi khô, không dùng thuốc tẩy\r\n\r\nKích thước: Kích thước châu Á, bảng kích thước có thể có sai số 1-3 cm do phương pháp đo.', 'https://yaemiko.click/wp-content/uploads/2024/04/310CeiJvB7L._SY500_.jpg', 11, 'S,M,L,XL,2XL', 'default', 'active', 1234.00, 5.00, 1, 1, NULL, 1, '2024-05-15 12:52:11', '2024-05-15 12:52:11'),
-(5, 'Venti', 'venti', 'Trang phục cosplay này dựa trên nhân vật Venti  trong Genshin Impact. Nó có thể được sử dụng trong các hội nghị cosplay và tiệc Halloween.', 'Nguồn: Genshin Impact\r\n\r\nNhân vật: Zoro\r\n\r\nBao gồm: Quần, Áo , Áo Choàng, Thắt Lưng, Bông Tai\r\n\r\nChất liệu: polyester.\r\n\r\nHướng dẫn bảo quản: Giặt tay bằng nước lạnh, phơi khô, không dùng thuốc tẩy\r\n\r\nKích thước: Kích thước châu Á, bảng kích thước có thể có sai số 1-3 cm do phương pháp đo.', 'https://yaemiko.click/wp-content/uploads/2024/04/venti-1.jpg', 114, 'S,M,L,XL,2XL', 'default', 'active', 1234.00, 5.00, 1, 2, NULL, 1, '2024-05-15 12:53:18', '2024-05-15 12:53:18'),
+(5, 'Venti', 'venti', 'Trang phục cosplay này dựa trên nhân vật Venti  trong Genshin Impact. Nó có thể được sử dụng trong các hội nghị cosplay và tiệc Halloween.', 'Nguồn: Genshin Impact\r\n\r\nNhân vật: Zoro\r\n\r\nBao gồm: Quần, Áo , Áo Choàng, Thắt Lưng, Bông Tai\r\n\r\nChất liệu: polyester.\r\n\r\nHướng dẫn bảo quản: Giặt tay bằng nước lạnh, phơi khô, không dùng thuốc tẩy\r\n\r\nKích thước: Kích thước châu Á, bảng kích thước có thể có sai số 1-3 cm do phương pháp đo.', 'https://yaemiko.click/wp-content/uploads/2024/04/venti-1.jpg', 113, 'S,M,L,XL,2XL', 'default', 'active', 1234.00, 5.00, 1, 5, NULL, 1, '2024-05-15 12:53:18', '2024-05-19 09:57:24'),
 (6, 'Naruto', 'naruto', 'Trang phục cosplay này dựa trên nhân vật Naruto trong Naruto. Nó có thể được sử dụng trong các hội nghị cosplay và tiệc Halloween.', 'Nguồn: Naruto\r\n\r\nNhân vật: Zoro\r\n\r\nBao gồm: Quần, Áo , Áo Choàng, Thắt Lưng, Bông Tai\r\n\r\nChất liệu: polyester.\r\n\r\nHướng dẫn bảo quản: Giặt tay bằng nước lạnh, phơi khô, không dùng thuốc tẩy\r\n\r\nKích thước: Kích thước châu Á, bảng kích thước có thể có sai số 1-3 cm do phương pháp đo.', 'https://yaemiko.click/wp-content/uploads/2024/04/41y3bfPwZL._SY500_.jpg', 199, 'S,M,L,XL,2XL', 'new', 'active', 999.00, 20.00, 1, 3, NULL, 1, '2024-05-15 13:03:47', '2024-05-15 13:03:47'),
 (7, 'Madara', 'madara', 'Trang phục cosplay này dựa trên nhân vật Madara trong Naruto. Nó có thể được sử dụng trong các hội nghị cosplay và tiệc Halloween.', 'Nguồn: Naruto\r\n\r\nNhân vật: Zoro\r\n\r\nBao gồm: Quần, Áo , Áo Choàng, Thắt Lưng, Bông Tai\r\n\r\nChất liệu: polyester.\r\n\r\nHướng dẫn bảo quản: Giặt tay bằng nước lạnh, phơi khô, không dùng thuốc tẩy\r\n\r\nKích thước: Kích thước châu Á, bảng kích thước có thể có sai số 1-3 cm do phương pháp đo.', 'https://yaemiko.click/wp-content/uploads/2024/04/31BSmC4qrqL._SY500_.jpg', 199, 'S,M,L,XL,2XL', 'new', 'active', 999.00, 20.00, 1, 3, NULL, 1, '2024-05-15 13:04:25', '2024-05-15 13:04:25'),
 (8, 'Tsunade', 'tsunade', 'Trang phục cosplay này dựa trên nhân vật Tsunade trong Naruto. Nó có thể được sử dụng trong các hội nghị cosplay và tiệc Halloween.', 'Nguồn: Naruto\r\n\r\nNhân vật: Zoro\r\n\r\nBao gồm: Quần, Áo , Áo Choàng, Thắt Lưng, Bông Tai\r\n\r\nChất liệu: polyester.\r\n\r\nHướng dẫn bảo quản: Giặt tay bằng nước lạnh, phơi khô, không dùng thuốc tẩy\r\n\r\nKích thước: Kích thước châu Á, bảng kích thước có thể có sai số 1-3 cm do phương pháp đo.', 'https://yaemiko.click/wp-content/uploads/2024/04/31E1yxlVmXL._SY500_.jpg', 199, 'S,M,L,XL,2XL', 'new', 'active', 999.00, 20.00, 1, 3, NULL, 1, '2024-05-15 13:05:04', '2024-05-15 13:05:04'),
@@ -442,8 +451,8 @@ CREATE TABLE `product_reviews` (
   `user_id` bigint UNSIGNED DEFAULT NULL,
   `product_id` bigint UNSIGNED DEFAULT NULL,
   `rate` tinyint NOT NULL DEFAULT '0',
-  `review` text COLLATE utf8mb4_unicode_ci,
-  `status` enum('active','inactive') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
+  `review` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `status` enum('active','inactive') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -463,13 +472,13 @@ INSERT INTO `product_reviews` (`id`, `user_id`, `product_id`, `rate`, `review`, 
 
 CREATE TABLE `settings` (
   `id` bigint UNSIGNED NOT NULL,
-  `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `short_des` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `logo` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `photo` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `short_des` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `logo` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `photo` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -479,7 +488,7 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`id`, `description`, `short_des`, `logo`, `photo`, `address`, `phone`, `email`, `created_at`, `updated_at`) VALUES
-(1, 'My Name Anh Van', 'Muốn hỏi gì không', 'https://i.pinimg.com/236x/5b/51/64/5b5164dcf86e0b3825931f217964b144.jpg', 'https://i.pinimg.com/236x/ee/87/d8/ee87d8be406a16e8649217baa79505c2.jpg', '1 P.Trung Hòa, Trung Hoà, Cầu Giấy, Hà Nội, Việt Nam', '0967078760', 'yaemiko@gmail.com', NULL, '2024-05-14 15:53:48');
+(1, 'My Name Anh Van', 'Muốn hỏi gì không', 'https://yaemiko.click/wp-content/uploads/2024/04/cropped-logo-1.jpg', 'https://i.pinimg.com/236x/ee/87/d8/ee87d8be406a16e8649217baa79505c2.jpg', '1 P.Trung Hòa, Trung Hoà, Cầu Giấy, Hà Nội, Việt Nam', '0967078760', 'yaemiko@gmail.com', NULL, '2024-05-19 09:42:18');
 
 -- --------------------------------------------------------
 
@@ -489,9 +498,9 @@ INSERT INTO `settings` (`id`, `description`, `short_des`, `logo`, `photo`, `addr
 
 CREATE TABLE `shippings` (
   `id` bigint UNSIGNED NOT NULL,
-  `type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` decimal(8,2) NOT NULL,
-  `status` enum('active','inactive') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
+  `status` enum('active','inactive') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -504,16 +513,16 @@ CREATE TABLE `shippings` (
 
 CREATE TABLE `users` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `photo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `role` enum('admin','user') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
-  `provider` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `provider_id` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` enum('active','inactive') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `photo` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `role` enum('admin','user') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
+  `provider` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `provider_id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('active','inactive') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -525,7 +534,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `photo`, `role`, `provider`, `provider_id`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Anh Van', 'admin@mail.com', NULL, '$2y$10$PxKndFWhp9xG1R10Dud8G.Mf9UqngT5HH3UvsUOh/KT0EQRGQFLse', 'https://i.pinimg.com/564x/93/94/74/9394748d58e086d83ab1f55abaaff5c9.jpg', 'admin', NULL, NULL, 'active', NULL, NULL, '2024-05-14 15:52:34'),
 (2, 'Customer A', 'customer@mail.com', NULL, '$2y$10$iWDqIulnajN36PGUKBf61uuZLY7USZZohHmzRecsXt960n9fR2DSy', NULL, 'user', NULL, NULL, 'active', NULL, NULL, NULL),
-(3, 'Customer', 'customer2@mail.com', NULL, '$2y$10$lGYpa8KG1icunxYkQ4Gtk.RTCFr43JrdKPGXoSMhpO0znDmm6cmPK', 'https://i.pinimg.com/564x/93/94/74/9394748d58e086d83ab1f55abaaff5c9.jpg', 'user', NULL, NULL, 'active', NULL, '2024-05-14 23:51:55', '2024-05-14 23:54:56');
+(3, 'Customer', 'customer2@mail.com', NULL, '$2y$10$lGYpa8KG1icunxYkQ4Gtk.RTCFr43JrdKPGXoSMhpO0znDmm6cmPK', 'https://i.pinimg.com/564x/93/94/74/9394748d58e086d83ab1f55abaaff5c9.jpg', 'user', NULL, NULL, 'inactive', NULL, '2024-05-14 23:51:55', '2024-05-19 09:53:43');
 
 -- --------------------------------------------------------
 
@@ -550,7 +559,7 @@ CREATE TABLE `wishlists` (
 --
 
 INSERT INTO `wishlists` (`id`, `product_id`, `cart_id`, `user_id`, `price`, `quantity`, `amount`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 769.23, 1, 769.23, '2024-05-15 00:00:56', '2024-05-15 00:01:08');
+(1, 1, 6, 1, 769.23, 1, 769.23, '2024-05-15 00:00:56', '2024-05-19 01:59:50');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -733,13 +742,13 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT cho bảng `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `coupons`
@@ -769,7 +778,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `posts`

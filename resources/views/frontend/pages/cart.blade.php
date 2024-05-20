@@ -250,30 +250,16 @@
   		$('select.nice-select').niceSelect();
 	</script>
 	<script>
-        $(document).ready(function(){
-            // Tính toán giá trị tổng của sản phẩm từ data-title="Price"
-            let subtotal = 0;
-            $('.price span').each(function() {
-                subtotal += parseFloat($(this).text().replace('$', '').replace(',', ''));
-            });
-            $('.order_subtotal').attr('data-price', subtotal.toFixed(2));
-            $('.order_subtotal span').text('$' + subtotal.toFixed(2));
+		$(document).ready(function(){
+			$('.shipping select[name=shipping]').change(function(){
+				let cost = parseFloat( $(this).find('option:selected').data('price') ) || 0;
+				let subtotal = parseFloat( $('.order_subtotal').data('price') );
+				let coupon = parseFloat( $('.coupon_price').data('price') ) || 0;
+				// alert(coupon);
+				$('#order_total_price span').text('$'+(subtotal + cost-coupon).toFixed(2));
+			});
 
-            // Tính toán lại giá trị tổng khi có sự thay đổi trong shipping
-            $('.shipping select[name=shipping]').change(function(){
-                let cost = parseFloat($(this).find('option:selected').data('price')) || 0;
-                let coupon = parseFloat($('.coupon_price').data('price')) || 0;
-                let newTotal = subtotal + cost - coupon;
-                $('#order_total_price span').text('$' + newTotal.toFixed(2));
-            });
-
-            // Tính lại tổng khi trang web được tải
-            let cost = parseFloat($('.shipping select[name=shipping]').find('option:selected').data('price')) || 0;
-            let coupon = parseFloat($('.coupon_price').data('price')) || 0;
-            let newTotal = subtotal + cost - coupon;
-            $('#order_total_price span').text('$' + newTotal.toFixed(2));
-        });
+		});
 
 	</script>
-
 @endpush

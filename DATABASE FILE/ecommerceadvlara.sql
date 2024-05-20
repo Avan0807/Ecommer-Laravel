@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th5 19, 2024 lúc 08:25 PM
+-- Thời gian đã tạo: Th5 20, 2024 lúc 06:53 AM
 -- Phiên bản máy phục vụ: 8.0.30
 -- Phiên bản PHP: 7.2.34
 
@@ -96,7 +96,10 @@ INSERT INTO `carts` (`id`, `product_id`, `order_id`, `user_id`, `price`, `status
 (4, 8, 2, 1, 799.20, 'new', 6, 4795.20, '2024-05-15 13:13:47', '2024-05-19 01:56:41'),
 (5, 9, 3, 1, 799.20, 'new', 2, 1798.20, '2024-05-19 01:59:32', '2024-05-19 02:00:39'),
 (6, 8, 3, 1, 799.20, 'new', 1, 799.20, '2024-05-19 01:59:50', '2024-05-19 02:00:39'),
-(7, 5, 4, 1, 1172.30, 'new', 1, 1172.30, '2024-05-19 02:01:10', '2024-05-19 02:01:30');
+(7, 5, 4, 1, 1172.30, 'new', 1, 1172.30, '2024-05-19 02:01:10', '2024-05-19 02:01:30'),
+(8, 8, NULL, 1, 799.20, 'new', 2, 1598.40, '2024-05-19 14:41:30', '2024-05-19 14:42:15'),
+(9, 7, NULL, 1, 799.20, 'new', 4, 3196.80, '2024-05-19 14:41:38', '2024-05-20 00:52:40'),
+(10, 4, NULL, 1, 1172.30, 'new', 4, 4689.20, '2024-05-19 14:41:49', '2024-05-19 14:42:15');
 
 -- --------------------------------------------------------
 
@@ -191,7 +194,8 @@ CREATE TABLE `messages` (
 --
 
 INSERT INTO `messages` (`id`, `name`, `subject`, `email`, `photo`, `phone`, `message`, `read_at`, `created_at`, `updated_at`) VALUES
-(1, 'Nguyễn Văn', 'avan', 'Van080703@gmail.com', NULL, '0967078760', '123asdasdadasvavsavavasvasvasvasv', '2024-05-19 01:57:24', '2024-05-15 13:20:01', '2024-05-19 01:57:24');
+(1, 'Nguyễn Văn', 'avan', 'Van080703@gmail.com', NULL, '0967078760', '123asdasdadasvavsavavasvasvasvasv', '2024-05-19 01:57:24', '2024-05-15 13:20:01', '2024-05-19 01:57:24'),
+(2, 'Nguyễn Văn', 'lalala', 'Van080703@gmail.com', NULL, '0967078760', 'llloelaoeloaloeloaleoal', '2024-05-19 14:43:36', '2024-05-19 14:43:21', '2024-05-19 14:43:36');
 
 -- --------------------------------------------------------
 
@@ -256,6 +260,7 @@ INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `
 ('1be981ef-2b56-46cb-bb5f-665a00369284', 'App\\Notifications\\StatusNotification', 'App\\User', 1, '{\"title\":\"New Product Rating!\",\"actionURL\":\"http:\\/\\/ecommercelaravel\\/public\\/product-detail\\/venti\",\"fas\":\"fa-star\"}', '2024-05-19 01:57:05', '2024-05-15 12:55:00', '2024-05-19 01:57:05'),
 ('1ecab4dd-17db-4e4d-8e4a-952689e57e21', 'App\\Notifications\\StatusNotification', 'App\\User', 1, '{\"title\":\"New Order Received\",\"actionURL\":\"http:\\/\\/ecommercelaravel\\/public\\/admin\\/order\\/1\",\"fas\":\"fa-file-alt\"}', '2024-05-15 00:05:59', '2024-05-15 00:02:50', '2024-05-15 00:05:59'),
 ('40c8ecd2-87bb-4494-b232-1b9d4a477f70', 'App\\Notifications\\StatusNotification', 'App\\User', 1, '{\"title\":\"New Order Received\",\"actionURL\":\"http:\\/\\/ecommerlaravel\\/public\\/admin\\/order\\/5\",\"fas\":\"fa-file-alt\"}', '2024-05-19 02:16:28', '2024-05-19 02:02:18', '2024-05-19 02:16:28'),
+('5232ec6a-b856-4e78-8170-c03657b6574b', 'App\\Notifications\\StatusNotification', 'App\\User', 1, '{\"title\":\"New Comment created\",\"actionURL\":\"http:\\/\\/ecommercelaravel\\/public\\/blog-detail\\/interesting-things-about-wibu-anime-that-not-everyone-knows\",\"fas\":\"fas fa-comment\"}', '2024-05-20 00:49:03', '2024-05-20 00:48:47', '2024-05-20 00:49:03'),
 ('57b6ff0b-fb9a-449f-9cfa-d3852d36b065', 'App\\Notifications\\StatusNotification', 'App\\User', 1, '{\"title\":\"New Order Received\",\"actionURL\":\"http:\\/\\/ecommerlaravel\\/public\\/admin\\/order\\/2\",\"fas\":\"fa-file-alt\"}', '2024-05-19 01:56:55', '2024-05-19 01:56:41', '2024-05-19 01:56:55'),
 ('a942d6e0-8c93-410b-a3ed-edc7b7fa2c03', 'App\\Notifications\\StatusNotification', 'App\\User', 1, '{\"title\":\"New Order Received\",\"actionURL\":\"http:\\/\\/ecommerlaravel\\/public\\/admin\\/order\\/4\",\"fas\":\"fa-file-alt\"}', '2024-05-19 09:42:46', '2024-05-19 02:01:30', '2024-05-19 09:42:46'),
 ('ad16376f-7e19-4472-88ec-ea641d28dc5b', 'App\\Notifications\\StatusNotification', 'App\\User', 1, '{\"title\":\"New Order Received\",\"actionURL\":\"http:\\/\\/ecommerlaravel\\/public\\/admin\\/order\\/3\",\"fas\":\"fa-file-alt\"}', '2024-05-19 09:42:50', '2024-05-19 02:00:39', '2024-05-19 09:42:50');
@@ -382,6 +387,13 @@ CREATE TABLE `post_comments` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `post_comments`
+--
+
+INSERT INTO `post_comments` (`id`, `user_id`, `post_id`, `comment`, `status`, `replied_comment`, `parent_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'Hay', 'active', NULL, NULL, '2024-05-20 00:48:47', '2024-05-20 00:48:47');
+
 -- --------------------------------------------------------
 
 --
@@ -504,6 +516,15 @@ CREATE TABLE `shippings` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `shippings`
+--
+
+INSERT INTO `shippings` (`id`, `type`, `price`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Giao Hàng Tiết kiệm', '12.00', 'active', '2024-05-19 15:07:25', '2024-05-19 15:07:25'),
+(2, 'Giao Hàng Nhanh', '15.00', 'active', '2024-05-19 15:07:32', '2024-05-19 15:07:32'),
+(3, 'Hoả Tốc', '25.00', 'active', '2024-05-19 15:07:37', '2024-05-19 15:07:37');
 
 -- --------------------------------------------------------
 
@@ -742,7 +763,7 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT cho bảng `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT cho bảng `categories`
@@ -766,7 +787,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT cho bảng `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `migrations`
@@ -796,7 +817,7 @@ ALTER TABLE `post_categories`
 -- AUTO_INCREMENT cho bảng `post_comments`
 --
 ALTER TABLE `post_comments`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `post_tags`
@@ -826,7 +847,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT cho bảng `shippings`
 --
 ALTER TABLE `shippings`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
